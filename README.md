@@ -1,5 +1,8 @@
 # VueJS + Firebase example app
 
+## Live preview
+A live preview is availabe on [netlify](https://vuejs-firebase-example.netlify.app).
+
 ## How to use?
 
 1. Clone/download repository
