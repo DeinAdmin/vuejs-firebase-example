@@ -1,15 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div v-if="loggedIn !== null">
+      <LoginView v-if="!loggedIn" />
+      <HomeView v-else />
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LoginView from './components/LoginView';
+import { auth } from '@/util/firebase.js'
+import HomeView from "@/components/HomeView";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HomeView,
+    LoginView
+  },
+  data() {
+    return {
+      loggedIn: null,
+    }
+  },
+  created() {
+    auth.onAuthStateChanged((user) => {
+      this.loggedIn = !!user;
+    });
   }
 }
 </script>

@@ -1,24 +1,11 @@
-# vuejs-firebase-example
+# VueJS + Firebase example app
 
-## Project setup
-```
-yarn install
-```
+## How to use?
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+1. Clone/download repository
+2. Create a project on [Firebase](https://firebase.google.com)
+3. Add a web app and copy required initialization tokens.
+4. Paste them into @/util/firebase.js
+5. Run ```npm start``` or ```yarn serve``` to start the app.
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**A video tutorial will be available soon.**
