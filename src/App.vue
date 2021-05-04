@@ -12,6 +12,7 @@ import LoginView from './components/LoginView';
 import { auth } from '@/util/firebase.js'
 import HomeView from "@/components/HomeView";
 
+
 export default {
   name: 'App',
   components: {
@@ -32,12 +33,20 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @font-face {
+    font-family: SFpro;
+    src: url('assets/sfpro.otf') format('opentype');
+  }
+  @font-face {
+    font-family: SFpro;
+    font-weight: bold;
+    src: url('assets/sfprobold.otf') format('opentype');
+  }
+  * {
+    font-family: "SFpro", sans-serif;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
 </style>
