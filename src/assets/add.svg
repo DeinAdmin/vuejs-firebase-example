@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Page 1</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1440" height="85"></rect>
+        <filter x="-1.2%" y="-24.7%" width="102.5%" height="142.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="-3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#03DAC6" offset="0%"></stop>
+            <stop stop-color="#018786" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-4" x="1264" y="18" width="49" height="49" rx="8"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Main-Screen" transform="translate(-1272.000000, -26.000000)">
+            <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="Rectangle">
+                <use fill="#03DAC6" xlink:href="#path-4"></use>
+                <rect stroke="#018786" stroke-width="1" stroke-linejoin="square" fill="url(#linearGradient-3)" x="1264.5" y="18.5" width="48" height="48" rx="8"></rect>
+            </g>
+            <g id="remove" transform="translate(1286.570868, 42.786357) rotate(-46.000000) translate(-1286.570868, -42.786357) translate(1261.570868, 17.786357)">
+                <polygon id="Path" points="0.656759034 0.250101384 49.656759 0.250101384 49.656759 49.2501014 0.656759034 49.2501014"></polygon>
+                <path d="M31.8776383,17.938781 L26.5460758,23.2703435 L21.2145133,17.938781 L18.2960758,20.8572185 L23.6276383,26.188781 L18.2960758,31.5203435 L21.2145133,34.438781 L26.5460758,29.1072185 L31.8776383,34.438781 L34.7960758,31.5203435 L29.4645133,26.188781 L34.7960758,20.8572185 L31.8776383,17.938781 Z M26.5460758,42.688781 C17.4504508,42.688781 10.0460758,35.284406 10.0460758,26.188781 C10.0460758,17.093156 17.4504508,9.68878098 26.5460758,9.68878098 C35.6417008,9.68878098 43.0460758,17.093156 43.0460758,26.188781 C43.0460758,35.284406 35.6417008,42.688781 26.5460758,42.688781 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

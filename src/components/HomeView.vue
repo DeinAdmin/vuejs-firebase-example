@@ -1,13 +1,20 @@
 <template>
   <div>
     <nav>
-      <h1>Home</h1>
+      <h1>Home 🏡</h1>
       <ul>
         <li><button @click="add">Add</button></li>
         <li><button class="btn-danger" @click="signOut">Logout</button></li>
       </ul>
     </nav>
-
+    <div class="container">
+      <h2>My streaming list:</h2>
+      <div class="item">
+        <input type="checkbox">
+        <p>Harry Potter</p>
+        <a><img src="../assets/remove.svg" width="35"></a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -81,6 +88,41 @@ export default {
   .btn-danger:hover {
     border: 1px solid #FF0000;
     filter: hue-rotate(30deg);
+  }
+  .container {
+    margin: 150px auto 0;
+    max-width: 500px;
+  }
+  h2 {
+    font-size: 28px;
+    color: #018786;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 0 4px;
+    background: #FFFFFF;
+    box-shadow: 0 0 9px -3px rgba(0,0,0,0.50);
+    border-radius: 9px;
+    position: relative;
+  }
+  .item input {
+    margin: 0 10px 0 11px;
+  }
+  .item a {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    min-width: 50px;
+    background: red;
+    border-bottom-right-radius: 9px;
+    border-top-right-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
 </style>
