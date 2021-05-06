@@ -2,6 +2,10 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/deinadmin/vuejs-firebase-example)
 
 
+## 💐 Live preview
+
+A live preview is available on [Netlify](https://vuejs-firebase-example.netlify.app/).
+
 
 ## ⚡️ How to use with Gitpod?
 
