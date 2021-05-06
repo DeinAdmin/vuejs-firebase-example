@@ -17,7 +17,7 @@
       <p v-if="!items[0]">Ooops, you don't have any items. Try add some! ⚡️</p>
     </div>
     <transition name="bgIn">
-      <div v-if="editing || adding" @click="editing = false; adding = false" class="modal"></div>
+      <div v-if="editing || adding" class="modal"></div>
     </transition>
     <transition name="cardIn">
       <div v-if="editing" class="card-container">
@@ -28,7 +28,7 @@
             </div>
             <input class="name" v-model="editingValue" type="text" placeholder="Name of movie/show">
           </div>
-          <button @click="adding = false" class="action-btn btn-left btn-danger">Cancel</button>
+          <button @click="editing = false" class="action-btn btn-left btn-danger">Cancel</button>
           <button @click="save" class="action-btn btn-right">Save</button>
         </div>
       </div>
@@ -42,7 +42,7 @@
             </div>
             <input class="name" v-model="addingValue" type="text" placeholder="Name of movie/show">
           </div>
-          <button @click="editing = false" class="action-btn btn-left btn-danger">Cancel</button>
+          <button @click="adding = false" class="action-btn btn-left btn-danger">Cancel</button>
           <button @click="add" class="action-btn btn-right">Add</button>
         </div>
       </div>
@@ -274,7 +274,12 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: fixed;
     z-index: 999;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
   }
   .card {
     border-radius: 20px;
