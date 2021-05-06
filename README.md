@@ -7,16 +7,16 @@
 
 1. ➕ Create a project on [Firebase](https://firebase.google.com).
 2. 🌟 Add a web app and copy required credentials.
-3. ✍️ Create environment variables on [Gitpod](https://gitpod.io/variables) named as follows with the values you get from Firebase:
+3. ⏬ Click the "Gitpod - ready to code" button.
+4. ✍️ Create a .env file with these keys and the values you get from Firebase:
 ```
-VUE_APP_FB_API_KEY
-VUE_APP_FB_APP_ID
-VUE_APP_FB_MESSAGING_ID
-VUE_APP_FB_PROJECT_ID
+VUE_APP_FB_API_KEY={VALUE}
+VUE_APP_FB_APP_ID={VALUE}
+VUE_APP_FB_MESSAGING_ID={VALUE}
+VUE_APP_FB_PROJECT_ID={VALUE}
 ```
 *If you need more help on this, click [here](https://www.craft.do/s/VSYQBdEsXTr6RO)!*
 
-4. ⏬ Click the "Gitpod - ready to code" button.
 5. 💫 Explore the code...
 
 
