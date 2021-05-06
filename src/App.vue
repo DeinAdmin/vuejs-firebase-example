@@ -25,6 +25,7 @@ export default {
     }
   },
   created() {
+    console.log(process.env.VUE_APP_FB_MESSAGING_ID)
     auth.onAuthStateChanged((user) => {
       this.loggedIn = !!user;
     });
@@ -44,6 +45,7 @@ export default {
   }
   * {
     font-family: "SFpro", sans-serif;
+    outline: none;
   }
   body {
     margin: 0;

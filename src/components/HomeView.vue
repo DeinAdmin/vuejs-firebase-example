@@ -9,12 +9,29 @@
     </nav>
     <div class="container">
       <h2>My streaming list:</h2>
-      <div class="item">
-        <input type="checkbox">
-        <p>Harry Potter</p>
+      <div v-for="item in items" v-bind:key="item.name" class="item">
+        <input class="check" v-model="item.checked" type="checkbox">
+        <p @click="edit(item)">{{item.name}}</p>
         <a><img src="../assets/remove.svg" width="35"></a>
       </div>
     </div>
+    <transition name="bgIn">
+      <div v-if="editing" @click="editing = false" class="modal"></div>
+    </transition>
+    <transition name="cardIn">
+      <div v-if="editing" class="card-container">
+        <div class="card">
+          <div class="content">
+            <div>
+              <h1>Edit item</h1>
+            </div>
+            <input class="name" v-model="editingValue" type="text" placeholder="Name of movie/show">
+          </div>
+          <button @click="editing = false" class="action-btn btn-left btn-danger">Cancel</button>
+          <button @click="save" class="action-btn btn-right">Save</button>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -22,16 +39,39 @@
 import { auth } from "@/util/firebase";
 
 export default {
-    name: "HomeView",
-    methods: {
-      signOut() {
-        auth.signOut()
-      },
-      add() {
-        alert("I don't do anything for now ✌️")
-        alert("Have a good day! ☀️")
-      }
+  name: "HomeView",
+  data() {
+    return {
+      editing: false,
+      editingValue: "",
+      items: [
+        {
+          "name": "Harry Potter",
+          "checked": false,
+        },
+        {
+          "name": "Peter Pan",
+          "checked": true,
+        },
+      ]
     }
+  },
+  methods: {
+    signOut() {
+      auth.signOut()
+    },
+    add() {
+      alert("I don't do anything for now ✌️")
+      alert("Have a good day! ☀️")
+    },
+    edit(item) {
+      this.editing = true
+      this.editingValue = item.name
+    },
+    save() {
+      this.editing = false
+    }
+  }
 }
 
 </script>
@@ -106,9 +146,10 @@ export default {
     box-shadow: 0 0 9px -3px rgba(0,0,0,0.50);
     border-radius: 9px;
     position: relative;
+    margin-bottom: 20px;
   }
-  .item input {
-    margin: 0 10px 0 11px;
+  .item .check {
+    margin: 15px 10px 15px 11px;
   }
   .item a {
     cursor: pointer;
@@ -124,5 +165,121 @@ export default {
     justify-content: center;
     flex-direction: column;
   }
+  .modal {
+    position: fixed;
+    z-index: 10;
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(5px) brightness(90%);
+    -webkit-backdrop-filter: blur(5px);
+    top: 0;
+    left: 0;
+    animation-duration: .4s;
+    animation-name: bgIn;
+  }
+  @keyframes bgIn {
+    from {
+      opacity: 0;
+      backdrop-filter: blur(0px) brightness(100%);
+      -webkit-backdrop-filter: blur(0px);
+    }
 
+    to {
+      opacity: 1;
+      backdrop-filter: blur(5px) brightness(90%);
+      -webkit-backdrop-filter: blur(5px);
+    }
+  }
+  @keyframes cardIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+      filter: blur(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  .card {
+    border-radius: 20px;
+    background: white;
+    max-width: 400px;
+    width: 100%;
+    z-index: 999;
+    animation: cardIn;
+    animation-duration: .4s;
+    box-shadow: 0 0 9px -3px rgba(0,0,0,0.50);
+    transform: scale(1);
+    opacity: 1;
+    position: relative;
+
+  }
+  .bgIn-enter-active, .bgIn-leave-active {
+    transition: all .4s;
+  }
+  .bgIn-enter, .bgIn-leave-to {
+    backdrop-filter: blur(0px) brightness(100%);
+    -webkit-backdrop-filter: blur(0px);
+    opacity: 0;
+  }
+  .cardIn-enter-active, .cardIn-leave-active {
+    transition: all .4s;
+  }
+  .cardIn-enter, .cardIn-leave-to {
+    transform: scale(.8);
+    filter: blur(20px);
+    opacity: 0;
+  }
+  .card h1 {
+    padding: 0;
+    margin: 0 0 5px;
+  }
+  .content {
+    width: 100%;
+    margin: 20px;
+    padding-bottom: 40px;
+  }
+  .name {
+    max-width: 300px;
+    width: 100%;
+    margin: 9px 0 0;
+    border: none;
+    border-radius: 11px;
+    background: #FFFFFF;
+    box-shadow: 0 0 11px -4px rgba(0,0,0,0.50);
+    padding: 10px;
+  }
+  .action-btn {
+    z-index: 999;
+    max-width: 200px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+  }
+  .action-btn:hover {
+    transform: scale(1);
+  }
+  .action-btn:active {
+    filter: hue-rotate(-20deg);
+  }
+  .btn-right {
+    right: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .btn-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: 0;
+  }
 </style>
