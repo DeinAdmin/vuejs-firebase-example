@@ -3,13 +3,20 @@
 
 
 
-## ⚡️ How to use?
+## ⚡️ How to use with Gitpod?
 
-1. ⏬ Clone/download repository
-2. ➕ Create a project on [Firebase](https://firebase.google.com)
-3. 🌟 Add a web app and copy required initialization tokens.
-4. ✍️ Paste them into @/util/firebase.js
-5. 💫 Run ```npm start``` or ```yarn serve``` to start the app.
+1. ➕ Create a project on [Firebase](https://firebase.google.com).
+2. 🌟 Add a web app and copy required credentials.
+3. ✍️ Create environment variables on [Gitpod](https://gitpod.io/variables) named as follows with the values you get from Firebase:
+```
+VUE_APP_FB_API_KEY
+VUE_APP_FB_APP_ID
+VUE_APP_FB_MESSAGING_ID
+VUE_APP_FB_PROJECT_ID
+```
+*If you need more help on this, click [here](https://www.craft.do/s/VSYQBdEsXTr6RO)!*
+4. ⏬ Click the "Gitpod - ready to code" button.
+5. 💫 Explore the code...
 
 
 **A video tutorial will be available soon. ⏰**
