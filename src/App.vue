@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-if="loaded">
+      <!-- If the user is logged in, show the HomeView. If not, show LoginView -->
       <LoginView v-if="user === null" />
       <HomeView :user="user" v-else />
     </div>
@@ -11,7 +12,6 @@
 import LoginView from './components/LoginView';
 import { auth, db } from '@/util/firebase.js'
 import HomeView from "@/components/HomeView";
-
 
 export default {
   name: 'App',
@@ -26,10 +26,10 @@ export default {
     }
   },
   created() {
+    // Here we check if the user is logged in.
     let that = this
     auth.onAuthStateChanged(async (user) => {
       if(user) {
-
         await db.collection("profiles").doc(user.uid).get().then(doc => {
           if(!doc.data()) {
             db.collection("profiles").doc(user.uid).set({
@@ -38,18 +38,15 @@ export default {
             }).then(() => {
               that.user = user
               this.loaded = true
-
             })
           } else {
             that.user = user
             this.loaded = true
-
           }
         })
       } else {
         this.user = null
         this.loaded = true
-
       }
     });
   }

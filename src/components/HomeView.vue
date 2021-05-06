@@ -53,6 +53,8 @@
 <script>
 import { auth, db } from "@/util/firebase";
 import { v4 as uuidv4 } from 'uuid';
+import Toastify from 'toastify-js'
+
 
 export default {
   name: "HomeView",
@@ -111,14 +113,35 @@ export default {
       this.sync()
     },
     async remove(id) {
+      Toastify({
+        text: "Deleting...",
+        duration: 2000,
+        gravity: "bottom", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        backgroundColor: "linear-gradient(to right, #4364F7, #37C3FC)",
+      }).showToast();
       this.items = await this.items.filter(item => {
         return item.id !== id;
       })
       await db.collection("profiles").doc(this.user.uid).update({
         items: this.items
       })
+      Toastify({
+        text: "Successfully deleted item!",
+        duration: 2000,
+        gravity: "bottom", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      }).showToast();
     },
     async sync() {
+      Toastify({
+        text: "Syncing...",
+        duration: 2000,
+        gravity: "bottom", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        backgroundColor: "linear-gradient(to right, #4364F7, #37C3FC)",
+      }).showToast();
       let gatheredItems = this.items
 
       await db.collection("profiles").doc(this.user.uid).get().then(doc => {
@@ -136,6 +159,14 @@ export default {
       await db.collection("profiles").doc(this.user.uid).update({
         items: gatheredItems
       })
+
+      Toastify({
+        text: "Successfully synced with database!",
+        duration: 2000,
+        gravity: "bottom", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      }).showToast();
 
     }
   }
