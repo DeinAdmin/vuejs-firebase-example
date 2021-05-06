@@ -3,20 +3,21 @@
     <nav>
       <h1>Home 🏡</h1>
       <ul>
-        <li><button @click="add">Add</button></li>
-        <li><button class="btn-danger" @click="signOut">Logout</button></li>
+        <li><button @click="openAdd">Add</button></li>
+        <li><button class="btn-danger" @click="signOut">Logout {{user.email}}</button></li>
       </ul>
     </nav>
     <div class="container">
       <h2>My streaming list:</h2>
-      <div v-for="item in items" v-bind:key="item.name" class="item">
-        <input class="check" v-model="item.checked" type="checkbox">
-        <p @click="edit(item)">{{item.name}}</p>
-        <a><img src="../assets/remove.svg" width="35"></a>
+      <div v-for="item in items" v-bind:key="item.id" class="item">
+        <input class="check" v-model="item.checked" @click="sync" type="checkbox">
+        <p @click="edit(item)">{{item.title}}</p>
+        <a @click="remove(item.id)"><img src="../assets/remove.svg" width="35"></a>
       </div>
+      <p v-if="!items[0]">Ooops, you don't have any items. Try add some! ⚡️</p>
     </div>
     <transition name="bgIn">
-      <div v-if="editing" @click="editing = false" class="modal"></div>
+      <div v-if="editing || adding" @click="editing = false; adding = false" class="modal"></div>
     </transition>
     <transition name="cardIn">
       <div v-if="editing" class="card-container">
@@ -27,8 +28,22 @@
             </div>
             <input class="name" v-model="editingValue" type="text" placeholder="Name of movie/show">
           </div>
-          <button @click="editing = false" class="action-btn btn-left btn-danger">Cancel</button>
+          <button @click="adding = false" class="action-btn btn-left btn-danger">Cancel</button>
           <button @click="save" class="action-btn btn-right">Save</button>
+        </div>
+      </div>
+    </transition>
+    <transition name="cardIn">
+      <div v-if="adding" class="card-container">
+        <div class="card">
+          <div class="content">
+            <div>
+              <h1>Add item</h1>
+            </div>
+            <input class="name" v-model="addingValue" type="text" placeholder="Name of movie/show">
+          </div>
+          <button @click="editing = false" class="action-btn btn-left btn-danger">Cancel</button>
+          <button @click="add" class="action-btn btn-right">Add</button>
         </div>
       </div>
     </transition>
@@ -36,40 +51,92 @@
 </template>
 
 <script>
-import { auth } from "@/util/firebase";
+import { auth, db } from "@/util/firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   name: "HomeView",
   data() {
     return {
       editing: false,
+      adding: false,
       editingValue: "",
-      items: [
-        {
-          "name": "Harry Potter",
-          "checked": false,
-        },
-        {
-          "name": "Peter Pan",
-          "checked": true,
-        },
-      ]
+      addingValue: "",
+      editingId: "",
+      items: []
     }
+  },
+  async created() {
+    let that = this
+    await db.collection("profiles").doc(this.user.uid).get().then(doc => {
+      if(doc.data()) {
+        that.items = doc.data().items
+      }
+    })
+  },
+  props: {
+    profile: Object,
+    user: Object
   },
   methods: {
     signOut() {
       auth.signOut()
     },
+    openAdd() {
+      this.adding = true
+    },
     add() {
-      alert("I don't do anything for now ✌️")
-      alert("Have a good day! ☀️")
+      if(this.addingValue === "") return
+      this.items.push({
+        id: uuidv4(),
+        checked: false,
+        title: this.addingValue
+      })
+      this.adding = false
+      this.addingValue = ""
+      this.sync()
     },
     edit(item) {
       this.editing = true
-      this.editingValue = item.name
+      this.editingValue = item.title
+      this.editingId = item.id
     },
     save() {
+      if(this.editingValue === "") return
       this.editing = false
+      const index = this.items.findIndex(item => item.id === this.editingId )
+      let itemsCopy = [...this.items]
+      itemsCopy[index] = {...itemsCopy[index], title: this.editingValue}
+      this.items = itemsCopy
+      this.sync()
+    },
+    async remove(id) {
+      this.items = await this.items.filter(item => {
+        return item.id !== id;
+      })
+      await db.collection("profiles").doc(this.user.uid).update({
+        items: this.items
+      })
+    },
+    async sync() {
+      let gatheredItems = this.items
+
+      await db.collection("profiles").doc(this.user.uid).get().then(doc => {
+        doc.data().items.forEach(async item => {
+          let duplicate = false
+          await gatheredItems.forEach(i => {
+            if(i.id === item.id) duplicate = true
+          })
+          if(!duplicate) gatheredItems.push(item)
+        })
+      })
+
+      this.items = gatheredItems
+
+      await db.collection("profiles").doc(this.user.uid).update({
+        items: gatheredItems
+      })
+
     }
   }
 }

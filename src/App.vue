@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div v-if="loggedIn !== null">
-      <LoginView v-if="!loggedIn" />
-      <HomeView v-else />
+    <div v-if="loaded">
+      <LoginView v-if="user === null" />
+      <HomeView :user="user" v-else />
     </div>
   </div>
 </template>
 
 <script>
 import LoginView from './components/LoginView';
-import { auth } from '@/util/firebase.js'
+import { auth, db } from '@/util/firebase.js'
 import HomeView from "@/components/HomeView";
 
 
@@ -21,13 +21,36 @@ export default {
   },
   data() {
     return {
-      loggedIn: null,
+      user: null,
+      loaded: false
     }
   },
   created() {
-    console.log(process.env.VUE_APP_FB_MESSAGING_ID)
-    auth.onAuthStateChanged((user) => {
-      this.loggedIn = !!user;
+    let that = this
+    auth.onAuthStateChanged(async (user) => {
+      if(user) {
+
+        await db.collection("profiles").doc(user.uid).get().then(doc => {
+          if(!doc.data()) {
+            db.collection("profiles").doc(user.uid).set({
+              email: user.email,
+              items: [],
+            }).then(() => {
+              that.user = user
+              this.loaded = true
+
+            })
+          } else {
+            that.user = user
+            this.loaded = true
+
+          }
+        })
+      } else {
+        this.user = null
+        this.loaded = true
+
+      }
     });
   }
 }

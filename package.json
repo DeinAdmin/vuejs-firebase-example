@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "env": "^0.0.2",
     "firebase": "^8.4.3",
+    "uuid": "^8.3.2",
     "vue": "^3.0.0"
   },
   "devDependencies": {
