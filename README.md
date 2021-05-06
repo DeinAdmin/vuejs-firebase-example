@@ -15,6 +15,7 @@ VUE_APP_FB_MESSAGING_ID
 VUE_APP_FB_PROJECT_ID
 ```
 *If you need more help on this, click [here](https://www.craft.do/s/VSYQBdEsXTr6RO)!*
+
 4. ⏬ Click the "Gitpod - ready to code" button.
 5. 💫 Explore the code...
 
