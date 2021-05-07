@@ -24,7 +24,7 @@ VUE_APP_FB_PROJECT_ID={VALUE}
 5. 💫 Explore the code...
 
 
-**A video tutorial will be available soon. ⏰**
+**Don't understand the written guide?** Click [here](https://youtube.com/watch?v=WbvEuon5FFg) to watch the video tutorial.
 
 
 ## ℹ️ Help in code
